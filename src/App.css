@@ -1,38 +1,100 @@
-.App {
+/* .App {
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+} */
+nav ul {
+  list-style: none;
+
 }
 
-.App-link {
-  color: #61dafb;
+nav ul li {
+  display: inline-block;
+  padding: 10px;
+}
+.Auth-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.Auth-form {
+  /* width: 300px; */
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.Auth-form-title {
+  font-size: 1.5rem;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.btn-primary {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.link-primary {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.link-primary:hover {
+  text-decoration: underline;
+}
+.css-1cjrmu8-MuiPaper-root-MuiAppBar-root{
+  box-shadow: none !important;
+}
+.boxImage{
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+.boxImage img {
+  /* width: 100%; */
+  /* height: auto; */
+  width: 90%;
+  height: 200px;
+  /* background-image: url('img_flowers.jpg'); */
+  /* background-repeat: no-repeat; */
+  background-size: contain;
+  /* border: 1px solid red; */
+}
+a {
+  text-decoration: none;
+  color: black;
 }
