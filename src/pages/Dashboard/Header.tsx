@@ -7,7 +7,7 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import Badge from "@mui/material/Badge";
-import MenuItem from "@mui/material/MenuItem";
+// import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import AccountCircle from "@mui/icons-material/AccountCircle";
@@ -16,6 +16,10 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import { Link, useNavigate } from "react-router-dom";
 import MenuListComposition from "./MenuListComposition";
+// import MenuList from "@mui/material/MenuList";
+import MenuItem from "@mui/material/MenuItem";
+import MenuList from "@mui/material/MenuList";
+import { Button } from "@mui/material";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -77,7 +81,7 @@ export default function Header() {
   const handleMenuClose = () => {
     setAnchorEl(null);
     handleMobileMenuClose();
-    nav('/user/profile');
+    nav("/user/profile");
   };
 
   const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
@@ -102,7 +106,7 @@ export default function Header() {
       onClose={handleMenuClose}
     >
       {/* <Link to='/user/profile'> */}
-        <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       {/* </Link> */}
       <MenuItem onClick={handleMenuClose}>
         Hello, {sessionStorage.getItem("username")}
@@ -163,24 +167,29 @@ export default function Header() {
   );
 
   const handleClickToOpenMenu = () => {
-    console.log('open menu');
-    
-  }
+    console.log("open menu");
+  };
 
   return (
     <Box sx={{ width: "100%", top: 0 }}>
       <AppBar position="static" color="inherit">
         <Toolbar>
           {/* Replace MenuIcon with MenuListComposition */}
-          <MenuListComposition />
+          {/* <MenuListComposition /> */}
           <Typography
             variant="h6"
             noWrap
             component="div"
             sx={{ display: { xs: "none", sm: "block" } }}
           >
-            <Link to = '/dashboard'>Tra cứu bất động sản</Link>
+            <Link to="/dashboard">Estate Agency</Link>
           </Typography>
+          <MenuItem>
+            <Link to="/">Nhà đất cho thuê</Link>
+          </MenuItem>
+          <MenuItem>
+            <Link to="/">Nhà đất cho bán</Link>
+          </MenuItem>
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
@@ -233,6 +242,11 @@ export default function Header() {
             >
               <MoreIcon />
             </IconButton>
+          </Box>
+          <Box>
+            <Link to={"/create/post"}>
+              <Button>Đăng bài</Button>
+            </Link>
           </Box>
         </Toolbar>
       </AppBar>
