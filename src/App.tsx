@@ -9,6 +9,8 @@ import { Dashboard } from "./components/Dashboard";
 import { Details } from "./components/Details";
 import { BDSNgoaiDuAn } from "./components/BDSNgoaiDuAn";
 import { BDSTrongDuAn } from "./components/BDSTrongDuAn";
+import { ThongTinKhachHang } from "./components/ThongTinKhachHang";
+
 
 function App() {
   if (!sessionStorage.getItem("username")) {
@@ -24,9 +26,12 @@ function App() {
             <Route path="user/authentication" element={<Login />} />
             <Route path="user/:id/edit" element={<EditUser />} />
             <Route path="bat-dong-san/chi-tiet" element={<Details />} />
-            <Route path="/tra-cuu-bat-dong-san-ngoai-du-an" element={<BDSNgoaiDuAn/>}/>
-            <Route path="/tra-cuu-bat-dong-san-trong-du-an" element={<BDSTrongDuAn/>}/>
-            {/* <Route path="/user/profile" element={</>}/> */}
+            <Route path="/tra-cuu-bat-dong-san-ngoai-du-an" element={<BDSNgoaiDuAn />} />
+            <Route path="/tra-cuu-bat-dong-san-trong-du-an" element={<BDSTrongDuAn />} />
+            <Route path="/user/profile" element={<ThongTinKhachHang />} />
+            {/* <Route path="/thong-tin-khach-hang" element={<ThongTinKhachHang />} /> */}
+
+
           </Routes>
         </BrowserRouter>
       </h5>

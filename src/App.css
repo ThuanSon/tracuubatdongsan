@@ -12,6 +12,7 @@ nav ul li {
   display: inline-block;
   padding: 10px;
 }
+
 .Auth-form-container {
   display: flex;
   justify-content: center;
@@ -76,14 +77,17 @@ nav ul li {
 .link-primary:hover {
   text-decoration: underline;
 }
-.css-1cjrmu8-MuiPaper-root-MuiAppBar-root{
+
+.css-1cjrmu8-MuiPaper-root-MuiAppBar-root {
   box-shadow: none !important;
 }
-.boxImage{
+
+.boxImage {
   text-align: center;
   display: flex;
   justify-content: center;
 }
+
 .boxImage img {
   /* width: 100%; */
   /* height: auto; */
@@ -94,7 +98,65 @@ nav ul li {
   background-size: contain;
   /* border: 1px solid red; */
 }
+
 a {
   text-decoration: none;
   color: black;
+}
+
+
+.thong-tin {
+  background-color: rgb(232, 232, 80);
+}
+
+.thong-tin-khach-hang .list {
+  width: 400px;
+  padding: 30px 10px;
+
+  /* Điều chỉnh độ rộng của danh sách */
+}
+
+.thong-tin-khach-hang .list .MuiListItem-root {
+  justify-content: space-between;
+  /* Canh các mục trong danh sách theo hai bên */
+  padding: 10px 10px;
+  /* Thêm khoảng cách giữa các mục */
+}
+
+.thong-tin-khach-hang .list .MuiListItemText-root {
+  text-align: left;
+}
+
+.thong-tin-khach-hang .MuiTypography-root {
+  margin-bottom: 10px;
+  /* Thêm khoảng cách giữa tiêu đề và danh sách */
+}
+
+/* .thong-tin {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+} */
+
+.thong-tin-tai-khoan {
+  background-color: rgb(160, 160, 214);
+  border: 1px solid black;
+  width: auto;
+}
+
+.thong-tin-khach-hang {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border-radius: 5px;
+
+}
+
+.thong-tin-ca-nhan {
+  background-color: rgb(160, 160, 214);
 }
