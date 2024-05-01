@@ -12,7 +12,7 @@ type User = {
   updated_at: string;
 };
 
-export const Login = () => {
+const Login = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -23,7 +23,13 @@ export const Login = () => {
   useEffect(() => {
     // Fetch user data when component mounts
     // getUsers();
-  }, []);
+    // const navigate = useNavigate();
+
+      const username = sessionStorage.getItem("username");
+      if (username !== null) {
+        navigate("/dashboard");
+      }
+    }, [navigate]);
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -35,6 +41,7 @@ export const Login = () => {
       if (response.data.status === 1) {
         const validUser = response.data; // Assuming the response contains user data
         sessionStorage.setItem("username", validUser.username);
+        sessionStorage.setItem("id-user-lg", validUser.id);
         navigate("/dashboard");
       } else {
         alert("Sai thông tin đăng nhập");
@@ -108,3 +115,4 @@ export const Login = () => {
     </Grid>
   );
 };
+export default Login;

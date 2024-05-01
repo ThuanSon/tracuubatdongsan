@@ -3,6 +3,9 @@
   display: flex;
   justify-content: center;
 } */
+/* body{
+  background-color: #ccc;
+} */
 nav ul {
   list-style: none;
 
@@ -87,8 +90,8 @@ nav ul li {
 .boxImage img {
   /* width: 100%; */
   /* height: auto; */
-  width: 90%;
-  height: 200px;
+  width: 100%;
+  height: 400px;
   /* background-image: url('img_flowers.jpg'); */
   /* background-repeat: no-repeat; */
   background-size: contain;
@@ -154,13 +157,39 @@ label {
   color: #fff;
 }
 .rentalform {
-  width: 90%;
+  /* width: 90%; */
   /* border: 1px solid;
    */
    border-radius: 12px;
   padding: 20px;
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  /* box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px; */
 }
 input[type="file"]{
   appearance: none;
+}
+.css-qzbt6i-MuiButtonBase-root-MuiIconButton-root-MuiAutocomplete-popupIndicator .css-i4bv87-MuiSvgIcon-root {
+  background-color: #FDE8E8;
+  color: #C7262E;
+  border-radius: 5px;
+}
+.mapboxgl-control-container{
+  display: none;
+}
+/* mapboxgl-canvas-container mapboxgl-interactive mapboxgl-touch-drag-pan mapboxgl-touch-zoom-rotate{
+  display: none !important;
+} */
+/* .mapboxgl-map:nth-child(1){
+  display: none;
+} */
+#map {
+  height:48vh !important;
+  width: 100% !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 17px;
+}
+#map canvas{
+  border-radius: 14px;
+
 }

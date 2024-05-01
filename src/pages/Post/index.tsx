@@ -1,15 +1,10 @@
-import { Rental } from "./ForRental";
+import ThongTinLienHe from "./ThongTinLienHe";
 
 export const Post = () => {
     return (
         <div
-        style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center'
-        }}
         >
-            <Rental/>
+            <ThongTinLienHe/>
         </div>
     );
 }

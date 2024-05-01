@@ -1,45 +1,64 @@
-import React from "react";
-import { Routes, Route, Link, BrowserRouter } from "react-router-dom";
+import React, { Fragment } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { publicRoute } from "./Routes";
+import { DefaultLayout, VerticalLayout } from "./Layout";
+import { Grid, Paper } from "@mui/material";
 import "./App.css";
-import { ListUser } from "./pages/ListUser";
-import { CreateUser } from "./pages/CreateUser";
-import { EditUser } from "./pages/EditUser";
-import { Login } from "./pages/Login";
-import { Dashboard } from "./pages/Dashboard";
-import { Details } from "./pages/Details";
-import { BDSNgoaiDuAn } from "./pages/BDSNgoaiDuAn";
-import { BDSTrongDuAn } from "./pages/BDSTrongDuAn";
-import { Post } from "./pages/Post";
 
-function App() {
-  if (!sessionStorage.getItem("username")) {
-  }
+const App = () => {
   return (
-    <div className="App">
-      <h5>
-        <BrowserRouter>
-          <Routes>
-            <Route index element={<CreateUser />} />
-            <Route path="user/create" element={<CreateUser />} />
-            <Route path="dashboard" element={<Dashboard />} />
-            <Route path="user/authentication" element={<Login />} />
-            <Route path="user/:id/edit" element={<EditUser />} />
-            <Route path="bat-dong-san/chi-tiet" element={<Details />} />
-            <Route
-              path="/tra-cuu-bat-dong-san-ngoai-du-an"
-              element={<BDSNgoaiDuAn />}
-            />
-            <Route
-              path="/tra-cuu-bat-dong-san-trong-du-an"
-              element={<BDSTrongDuAn />}
-            />
-            <Route path="/create/post" element={<Post />} />
-            {/* <Route path="/user/profile" element={</>}/> */}
-          </Routes>
-        </BrowserRouter>
-      </h5>
-    </div>
+    <BrowserRouter>
+      <div className="app">
+        <Routes>
+          {publicRoute.map((route, index) => {
+            const Layout = route.layout === null ? Fragment : DefaultLayout;
+            const VertiLayout =
+              route.vertiLayout === null ? Fragment : VerticalLayout;
+            let Page = route.component;
+            const mdsize = route.vertiLayout === null ? 12 : 9;
+            const bgcolor = route.vertiLayout === null ? "white" : "#998e8e17";
+            return (
+              <Route
+                path={route.path}
+                key={index}
+                element={
+                  <Paper>
+                    <Layout>
+                      <div style={{ backgroundColor: "#998e8e17" }}> <br /></div>
+                      <Grid container>
+                        <VertiLayout />
+                        <Grid
+                          sx={{
+                            backgroundColor: bgcolor,
+                          }}
+                          item
+                          xs={12}
+                          sm={12}
+                          md={mdsize}
+                        >
+                          <div
+                            style={{
+                              marginLeft: "10px",
+                              backgroundColor: "white",
+                              // display: 'flex',
+                              justifyContent: 'center',
+                              alignItems: 'center'
+                            }}
+                          >
+                            <Page />
+                          </div>
+                        </Grid>
+                      </Grid>
+                    </Layout>
+                  </Paper>
+                }
+              ></Route>
+            );
+          })}
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;

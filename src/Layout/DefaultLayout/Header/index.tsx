@@ -1,3 +1,69 @@
+// import { BookOnlineOutlined, HomeMiniOutlined } from "@mui/icons-material";
+// import { Button, Grid, Typography } from "@mui/material";
+// import React, { useState } from "react";
+// import { Link } from "react-router-dom";
+
+// interface NavBar {
+//   id: number;
+//   title: string;
+//   isActive: boolean;
+//   link: string;
+//   icon: JSX.Element;
+// }
+// const Header = () => {
+//   const [navbar, setNavbar] = useState<NavBar[]>([
+//     {
+//       id: 1,
+//       title: "Nhà đất cho thuê",
+//       isActive: false,
+//       link: "/nha-dat-cho-thue",
+//       icon: <HomeMiniOutlined />,
+//     },
+//     {
+//       id: 2,
+//       title: "Nhà đất bán",
+//       isActive: false,
+//       link: "/nha-dat-ban",
+//       icon: <HomeMiniOutlined />,
+//     },
+//     {
+//       id: 3,
+//       title: "Tin tức",
+//       isActive: false,
+//       link: "/tin-tuc",
+//       icon: <BookOnlineOutlined />,
+//     },
+//   ]);
+//   return (
+//     <Grid container>
+//       <Grid item xs={12}>
+//         <Grid container>
+//           {navbar.map((item) => (
+//             <>
+//               <Grid item xs={12 / navbar.length}>
+//                 <Link to={item.link}>
+//                   <Button key={item.id} className="buttonlink">
+//                     <Typography style={{color: 'grey'}}>
+//                         <div>
+//                             {item.icon}
+//                         </div>
+//                         <div>
+//                             {item.title}
+//                         </div>
+//                     </Typography>
+//                   </Button>
+//                 </Link>
+//               </Grid>
+//             </>
+//           ))}
+//         </Grid>
+//       </Grid>
+//     </Grid>
+//   );
+// };
+
+// export default Header;
+
 import * as React from "react";
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
@@ -20,7 +86,7 @@ import { Link, useNavigate } from "react-router-dom";
 import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
 import { Button } from "@mui/material";
-
+import Logo from "../../../asset/image/logo.jpg";
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
@@ -182,7 +248,12 @@ export default function Header() {
             component="div"
             sx={{ display: { xs: "none", sm: "block" } }}
           >
-            <Link to="/dashboard">Estate Agency</Link>
+            <Link to="/dashboard">
+              <div>
+                <img src={Logo} alt="Logo" />
+              </div>
+              <div>Estate Agency</div>
+            </Link>
           </Typography>
           <MenuItem>
             <Link to="/">Nhà đất cho thuê</Link>
