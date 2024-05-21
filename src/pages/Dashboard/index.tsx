@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "./Header";
 import { Box, CardMedia, Grid } from "@mui/material";
@@ -6,10 +6,47 @@ import HomeImage from "../../asset/image/banner.png";
 import Search from "./Search";
 import ListBatDongSan from "./ListBatDongSan";
 import Map from "./Map";
+import axios from "axios";
+import MapComponent from "./MapProps";
+interface Position {
+  dientich: string;
+  donvi: string;
+  email: string;
+  giatri: string;
+  giaytophaply: string;
+  id: string;
+  latitude: number;
+  longitude: number;
+  mota: string;
+  name: string;
+  ngaydang: string;
+  nguoiduoclienhe: string;
+  noithat: string;
+  sodienthoai: string;
+  sophongngu: string;
+  sotang: string;
+  tieude: string;
+}
 
 const Dashboard = () => {
   const navigate = useNavigate();
-
+  const [pos, setPos] = useState<Position[]>([]);
+  const getListPosBDS = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost/api/Controller/function/getListPositionBDS/"
+      );
+      setPos(response.data); // Set empty array if response.data is falsy
+      console.log(response.data);
+      
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+      setPos([]); // Set empty array on error
+    }
+  };
+  useEffect(() => {
+    getListPosBDS();
+  }, []);
   // useEffect(() => {
   //   const username = sessionStorage.getItem("username");
   //   if (username === null) {
@@ -56,27 +93,19 @@ const Dashboard = () => {
       {/* </Box> */}
       <br />
       <Grid container>
-        <Grid item sm={2}></Grid>
-        <Grid item sm={8}>
+        <Grid item sm={1}></Grid>
+        <Grid item sm={10}>
           <Search />
         </Grid>
-        <Grid item sm={2}></Grid>
+        <Grid item sm={1}></Grid>
       </Grid>
       <br />
       <Grid
         container
         sx={{
-          // display: "flex",
-          // justifyContent: "center",
-          // alignItems: "center",
           paddingBottom: "50px",
         }}
       >
-        <Grid item sm={1}></Grid>
-        <Grid item sm={10}>
-          <h2>Bất động sản dành cho bạn</h2>
-        </Grid>
-        <Grid item sm={1}></Grid>
         <Grid item sm={1}></Grid>
         <Grid item sm={10}>
           <Grid
@@ -90,6 +119,7 @@ const Dashboard = () => {
           </Grid>
         </Grid>
         <Grid item sm={1}></Grid>
+        <br />
         <Grid item sm={1}></Grid>
         <Grid
           item
@@ -105,7 +135,7 @@ const Dashboard = () => {
             justifyContent="center"
             alignItems="center"
           > */}
-          <Map />
+          <MapComponent pos={pos} />
           {/* </Grid> */}
         </Grid>
         <Grid item sm={1}></Grid>

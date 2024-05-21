@@ -15,6 +15,12 @@ import ThongTinBaiViet from "../pages/Post/ThongTinBaiViet";
 import FullPost from "../pages/Post/FullPost";
 import Loadable from "../Components/Loadable";
 import Map from "../pages/Dashboard/Map";
+import { Fragment } from "react/jsx-runtime";
+import PostDetails from "../pages/PostDetails";
+import Slideshow from "../pages/PostDetails/Slideshow";
+import UserProfile from "../pages/User";
+import SearchBDS from "../pages/Search";
+import BatDongSanChoThue from "../pages/Dashboard/BatDongSanChoThue";
 
 // const CreateUser = Loadable(lazy(() => import("../pages/CreateUser")));
 
@@ -33,11 +39,16 @@ const publicRoute = [
     vertiLayout: null,
   },
   { path: "dashboard", component: Dashboard, vertiLayout: null },
+  { path: "/dashboard/bat-dong-san/:q", component: SearchBDS, vertiLayout: null },
   { path: "bat-dong-san/chi-tiet", component: Details, vertiLayout: null },
-  { path: "/create/post", component: FullPost },
+  { path: "/create/post", component: Post },
   { path: "/upload-images", component: UpLoadImage },
   { path: "/bat-dong-san", component: ThongTinBatDongSan },
   { path: "/thong-tin-bai-viet", component: ThongTinBaiViet },
   { path: "/dashboard/map", component: Map, vertiLayout: null },
+  { path: "/chi-tiet-bai-dang/:id", component: PostDetails, vertiLayout: null },
+  { path: "/slide-show", component: Slideshow, vertiLayout: null },
+  { path: "/user/profile/:idnguoidang", component: UserProfile, vertiLayout: null },
+  { path: "/bat-dong-san/:q", component: BatDongSanChoThue, vertiLayout: null },
 ];
 export { publicRoute };

@@ -1,24 +1,13 @@
-import { InputOutlined } from "@mui/icons-material";
-import {
-  Autocomplete,
-  Button,
-  Grid,
-  InputAdornment,
-  OutlinedInput,
-  TextField,
-} from "@mui/material";
-import axios from "axios";
 import React, { Fragment, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { PropsPost } from "../../@type/type";
+import { InputOutlined } from "@mui/icons-material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { Grid, Autocomplete, TextField, OutlinedInput, InputAdornment, Button } from "@mui/material";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import Base64 from "../../@type/Base64";
-import { BatDongSanType } from "../../@type/type";
-interface Props {
-  loaiTin: string;
-}
-const FullPost: React.FC<Props> = ({ loaiTin }) => {
+const PostForRent: React.FC<PropsPost> = ({ loaiTin }) => {
   const navigate = useNavigate();
-
   useEffect(() => {
     const username = sessionStorage.getItem("username");
     if (username === null) {
@@ -32,7 +21,6 @@ const FullPost: React.FC<Props> = ({ loaiTin }) => {
     sodienthoai: "",
     email: "",
   });
-
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement>,
     name: string
@@ -41,10 +29,7 @@ const FullPost: React.FC<Props> = ({ loaiTin }) => {
     setLienHe({ ...lienHe, [name]: value });
     console.log(lienHe);
   };
-  //   const nav = useNavigate();
-
   const [selectedFiles, setSelectedFile] = useState<FileList | null>(null);
-
   const fileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
       setSelectedFile(event.target.files);
@@ -57,13 +42,11 @@ const FullPost: React.FC<Props> = ({ loaiTin }) => {
         anh3: filenames[2] || "",
         anh4: filenames[3] || "",
       });
-
       console.log(event.target.files);
     }
   };
   const renderImage = () => {
     if (!selectedFiles) return null;
-
     return Array.from(selectedFiles).map((file, index) => (
       <div
         key={index}
@@ -73,7 +56,7 @@ const FullPost: React.FC<Props> = ({ loaiTin }) => {
         }}
       >
         <img
-          style={{ borderRadius: "7px" }}
+          style={{borderRadius: '7px'}}
           src={URL.createObjectURL(file)}
           alt={`Image ${index}`}
           width="400"
@@ -84,12 +67,10 @@ const FullPost: React.FC<Props> = ({ loaiTin }) => {
   const [tinh, setTinh] = useState<any>();
   const [quan, setQuan] = useState<any>();
   const [phuong, setPhuong] = useState<any>();
-  const giayTo = ["Sổ đỏ/Sổ hồng", "Hợp đồng mua bán", "Đang chờ giấy"];
+  const giayTo = ["Hợp đồng Thuê"];
   const noithat = ["Đầy đủ", "Cơ bản", "Chưa có"];
   const nav = useNavigate();
-
   const [numberOfBedrooms, setNumberOfBedrooms] = useState(0);
-
   const incrementBedrooms = () => {
     setNumberOfBedrooms((prevCount) => prevCount + 1);
   };
@@ -99,11 +80,9 @@ const FullPost: React.FC<Props> = ({ loaiTin }) => {
     }
   };
   const [numberOfBathrooms, setNumberOfBathrooms] = useState(0);
-
   const incrementBathrooms = () => {
     setNumberOfBathrooms((prevCount) => prevCount + 1);
   };
-
   const decrementBathrooms = () => {
     if (numberOfBathrooms > 0) {
       setNumberOfBathrooms((prevCount) => prevCount - 1);
@@ -160,7 +139,7 @@ const FullPost: React.FC<Props> = ({ loaiTin }) => {
     anh3: "",
     anh4: "",
   });
-  // console.log(formDataBatDongSan);
+  console.log(formDataBatDongSan);
   const [listType, setListType] = useState<any>();
   const getLoaiBDS = async () => {
     try {
@@ -210,6 +189,10 @@ const FullPost: React.FC<Props> = ({ loaiTin }) => {
     return res.data;
   };
   const handleSubmitLienHe = async () => {
+    // event.preventDefault(); // Prevent the default form submission
+
+    // console.log(lienHe);
+
     try {
       const response = await axios.post(
         "http://localhost/api/Controller/Lienhe/",
@@ -217,6 +200,7 @@ const FullPost: React.FC<Props> = ({ loaiTin }) => {
       );
       console.log("Lien he status: ", response.data.status);
       return response.data.status;
+      //   nav("/upload-images");
     } catch (error) {
       console.error("Error:", error);
     }
@@ -238,8 +222,6 @@ const FullPost: React.FC<Props> = ({ loaiTin }) => {
     sessionStorage.setItem("donvi", formDataBatDongSan.donvi);
     sessionStorage.setItem("giaytophaply", formDataBatDongSan.giaytophaply);
     sessionStorage.setItem("noithat", formDataBatDongSan.noithat);
-
-    // Set formDataPost after setting session storage
     setFormDataPost({
       tieude: "",
       mota: "",
@@ -293,6 +275,12 @@ const FullPost: React.FC<Props> = ({ loaiTin }) => {
   };
   const handleSubmit = async () => {
     const anh = await handleSubmitAnh();
+    // if (anh === 1 && reslh === 1 && resbds === 1) {
+    //   const resPost = await handleSubmitPost();
+    //   console.log(resPost);
+    // } else {
+    //   console.log(false);
+    // }
     if (anh) {
       const reslh = await handleSubmitLienHe();
       if (reslh === 1) {
@@ -318,6 +306,7 @@ const FullPost: React.FC<Props> = ({ loaiTin }) => {
       "http://localhost/api/controller/function/getDistrictByProvinceID/?provinceId=" +
         id
     );
+    // console.log(res);
     setQuan(res.data);
   };
   const getWardByDistricID = async (id: any) => {
@@ -327,66 +316,7 @@ const FullPost: React.FC<Props> = ({ loaiTin }) => {
     );
     setPhuong(res.data);
   };
-  const cur = ["VND", "Thương lượng", "giá/m2"];
-  // const [isFormValid, setIsFormValid] = useState(false);
-  // const checkFormValidity = () => {
-  //   const {
-  //     tieude,
-  //     mota,
-  //     dientich,
-  //     giatri,
-  //     province,
-  //     district,
-  //     ward,
-  //     giaytophaply,
-  //     noithat,
-  //   } = formDataBatDongSan;
-  //   const { tenlienhe, sodienthoai, email } = lienHe;
-  //   const isValid =
-  //     !!tieude &&
-  //     !!mota &&
-  //     !!dientich &&
-  //     !!giatri &&
-  //     !!province.PROVINCE_ID &&
-  //     !!district.DISTRICT_ID &&
-  //     !!ward.WARDS_ID &&
-  //     !!giaytophaply &&
-  //     !!noithat &&
-  //     !!tenlienhe &&
-  //     !!sodienthoai &&
-  //     !!email;
-  //   setIsFormValid(isValid);
-  // };
-  // useEffect(() => {
-  //   // Check if all required fields have values
-
-  //   checkFormValidity();
-  // }, [formDataBatDongSan, lienHe, formDataPost]);
-
-  const [isDisabled, setIsDisabled] = useState(true);
-  const check = () => {
-    if (
-      formDataBatDongSan.province.PROVINCE_NAME.length > 0 &&
-      formDataBatDongSan.district.DISTRICT_NAME.length > 0 &&
-      formDataBatDongSan.type.tenloai.length > 0 &&
-      formDataBatDongSan.ward.WARDS_NAME.length > 0 &&
-      formDataBatDongSan.street.length > 0 &&
-      formDataBatDongSan.diachi.length > 0 &&
-      formDataBatDongSan.dientich.length > 0 &&
-      formDataBatDongSan.giatri.length > 0
-      // formDataBatDongSan.donvi.length > 0 &&
-      // lienHe.tenlienhe.length > 0 &&
-      // lienHe.email.length > 0 &&
-      // lienHe.sodienthoai.length > 0 &&
-      // formDataPost.mota.length > 0 &&
-      // formDataPost.tieude.length > 0
-    ) {
-      setIsDisabled(false);
-    }
-  };
-  useEffect(() => {
-    check();
-  }, [formDataBatDongSan, lienHe, formDataPost]);
+  const cur = ["Tháng", "Năm", "Quý"];
   return (
     <>
       <div className="rentalform">
@@ -400,7 +330,6 @@ const FullPost: React.FC<Props> = ({ loaiTin }) => {
               disablePortal
               id="type-combo-box"
               options={listType || []}
-              // value={formDataBatDongSan.type}
               getOptionLabel={(resText: any) => resText.tenloai}
               onChange={(event, value) =>
                 setFormDataBatDongSan({
@@ -428,7 +357,6 @@ const FullPost: React.FC<Props> = ({ loaiTin }) => {
               options={tinh?.data || []}
               getOptionLabel={(resText: any) => resText.PROVINCE_NAME}
               sx={{ width: "100%" }}
-              // value={formDataBatDongSan.province}
               onChange={(event, value) => {
                 setFormDataBatDongSan({
                   ...formDataBatDongSan,
@@ -461,7 +389,6 @@ const FullPost: React.FC<Props> = ({ loaiTin }) => {
               disablePortal
               id="district-combo-box"
               options={quan?.data || ["Phải chọn tỉnh trước"]}
-              // getOptionLabel={(resText: any) => resText.DISTRICT_NAME}
               getOptionLabel={(option: any) => {
                 if (typeof option === "string") {
                   return option; // Return the string directly for non-object options
@@ -502,7 +429,6 @@ const FullPost: React.FC<Props> = ({ loaiTin }) => {
               disablePortal
               id="province-combo-box"
               options={phuong?.data || ["Phải chọn quận/huyện trước"]}
-              // getOptionLabel={(resText: any) => resText.WARDS_NAME}
               getOptionLabel={(option: any) => {
                 if (typeof option === "string") {
                   return option; // Return the string directly for non-object options
@@ -511,7 +437,6 @@ const FullPost: React.FC<Props> = ({ loaiTin }) => {
                 }
               }}
               sx={{ width: "100%" }}
-              // value={formData.ward}
               onChange={(event, value) =>
                 setFormDataBatDongSan({
                   ...formDataBatDongSan,
@@ -611,12 +536,12 @@ const FullPost: React.FC<Props> = ({ loaiTin }) => {
             />
           </Grid>
           <Grid item xs={8}>
-            <label htmlFor="giatri">Giá trị</label> <br />
+            <label htmlFor="giachothue">Giá cho thuê</label> <br />
             <TextField
               fullWidth
-              name="giatri"
-              label="Giá trị bất động sản"
-              onChange={(event: any) => handleChangeThongTin(event, "giatri")}
+              name="giachothue"
+              label="Giá trị bất động sản cho thuê"
+              onChange={(event: any) => handleChangeThongTin(event, "giachothue")}
             />
           </Grid>
           <Grid item xs={4}>
@@ -638,7 +563,7 @@ const FullPost: React.FC<Props> = ({ loaiTin }) => {
                 <TextField
                   {...params}
                   name="donvi"
-                  label="VD: 150,000,000"
+                  label="Tháng/Năm/Quý"
                   variant="outlined"
                   onChange={(event: any) =>
                     handleChangeThongTin(event, "donvi")
@@ -796,8 +721,6 @@ const FullPost: React.FC<Props> = ({ loaiTin }) => {
                       onChange={(e: any) =>
                         handleChangeThongTin(e, "sophongtam")
                       }
-                      //   disabled
-                      // aria-readonly
                     />
                   </Grid>
                   <Grid item xs={1}>
@@ -824,7 +747,6 @@ const FullPost: React.FC<Props> = ({ loaiTin }) => {
                       className="sotang"
                       value={formDataBatDongSan.sotang}
                       onChange={(e: any) => handleChangeThongTin(e, "sotang")}
-                      //   disabled
                     />
                   </Grid>
                   <Grid
@@ -925,15 +847,7 @@ const FullPost: React.FC<Props> = ({ loaiTin }) => {
             />
           </Grid>
           <Grid item xs={12}>
-            {}
-            <Button
-              // className={!isDisabled ? "disable-status" : "button-submit"}
-              className={isDisabled ? "disable-status" : "button-submit"}
-              fullWidth
-              type="submit"
-              disabled={isDisabled}
-              onClick={handleSubmit}
-            >
+            <Button fullWidth className="button-submit" type="submit" onClick={handleSubmit}>
               Đăng bài
             </Button>
           </Grid>
@@ -943,4 +857,4 @@ const FullPost: React.FC<Props> = ({ loaiTin }) => {
   );
 };
 
-export default FullPost;
+export default PostForRent;

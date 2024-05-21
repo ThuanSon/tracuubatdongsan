@@ -42,7 +42,7 @@ const Login = () => {
         const validUser = response.data; // Assuming the response contains user data
         sessionStorage.setItem("username", validUser.username);
         sessionStorage.setItem("id-user-lg", validUser.id);
-        navigate("/dashboard");
+        navigate(-1);
       } else {
         alert("Sai thông tin đăng nhập");
       }

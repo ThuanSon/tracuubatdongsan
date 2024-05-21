@@ -12,7 +12,7 @@ const CreateUser = () => {
       .post("http://localhost/api/controller/registration/", inputs)
       .then(() => {
         // Redirect to the login page after successful registration
-        navigate("/user/authentication");
+        navigate(-1);
       })
       .catch((error) => {
         console.error("Error occurred while registering user:", error);

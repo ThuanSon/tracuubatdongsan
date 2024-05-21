@@ -5,7 +5,8 @@ const Map = () => {
   // const
   return (
     // <div id='map'></div>
-    <MapComponent />
+    // <MapComponent />
+    <></>
   );
 };
 

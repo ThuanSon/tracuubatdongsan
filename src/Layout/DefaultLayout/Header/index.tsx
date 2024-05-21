@@ -87,6 +87,7 @@ import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
 import { Button } from "@mui/material";
 import Logo from "../../../asset/image/logo.jpg";
+import Base64 from "../../../@type/Base64";
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
@@ -147,7 +148,8 @@ export default function Header() {
   const handleMenuClose = () => {
     setAnchorEl(null);
     handleMobileMenuClose();
-    nav("/user/profile");
+    const id = sessionStorage.getItem('id-user-lg') ?? '';
+    nav(`/user/profile/${Base64.encode(Base64.encode(id))}`);
   };
 
   const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
@@ -256,10 +258,10 @@ export default function Header() {
             </Link>
           </Typography>
           <MenuItem>
-            <Link to="/">Nhà đất cho thuê</Link>
+            <Link to={`/bat-dong-san/Cho thuê`}>Nhà đất cho thuê</Link>
           </MenuItem>
           <MenuItem>
-            <Link to="/">Nhà đất cho bán</Link>
+            <Link to={`/bat-dong-san/Bán`}>Nhà đất bán</Link>
           </MenuItem>
           <Search>
             <SearchIconWrapper>
