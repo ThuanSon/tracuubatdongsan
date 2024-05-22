@@ -13,10 +13,12 @@ import { useNavigate } from "react-router-dom";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import Base64 from "../../@type/Base64";
 import { BatDongSanType } from "../../@type/type";
+import { useTitle } from "../../Components/useTitle";
 interface Props {
   loaiTin: string;
 }
 const FullPost: React.FC<Props> = ({ loaiTin }) => {
+  useTitle(`Đăng tin ${loaiTin?.toLocaleLowerCase()}`);
   const navigate = useNavigate();
 
   useEffect(() => {

@@ -21,6 +21,8 @@ import Slideshow from "../pages/PostDetails/Slideshow";
 import UserProfile from "../pages/User";
 import SearchBDS from "../pages/Search";
 import BatDongSanChoThue from "../pages/Dashboard/BatDongSanChoThue";
+// import MapLibreGL from "../pages/Map";
+import MapComponentDirection from "../pages/Map";
 
 // const CreateUser = Loadable(lazy(() => import("../pages/CreateUser")));
 
@@ -39,7 +41,12 @@ const publicRoute = [
     vertiLayout: null,
   },
   { path: "dashboard", component: Dashboard, vertiLayout: null },
-  { path: "/dashboard/bat-dong-san/:q", component: SearchBDS, vertiLayout: null },
+  { path: "map", component: MapComponentDirection, vertiLayout: null },
+  {
+    path: "/dashboard/bat-dong-san/:q",
+    component: SearchBDS,
+    vertiLayout: null,
+  },
   { path: "bat-dong-san/chi-tiet", component: Details, vertiLayout: null },
   { path: "/create/post", component: Post },
   { path: "/upload-images", component: UpLoadImage },
@@ -48,7 +55,11 @@ const publicRoute = [
   { path: "/dashboard/map", component: Map, vertiLayout: null },
   { path: "/chi-tiet-bai-dang/:id", component: PostDetails, vertiLayout: null },
   { path: "/slide-show", component: Slideshow, vertiLayout: null },
-  { path: "/user/profile/:idnguoidang", component: UserProfile, vertiLayout: null },
+  {
+    path: "/user/profile/:idnguoidang",
+    component: UserProfile,
+    vertiLayout: null,
+  },
   { path: "/bat-dong-san/:q", component: BatDongSanChoThue, vertiLayout: null },
 ];
 export { publicRoute };

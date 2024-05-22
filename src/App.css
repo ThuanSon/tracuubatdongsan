@@ -181,7 +181,7 @@ input[type="file"]{
 /* .mapboxgl-map:nth-child(1){
   display: none;
 } */
-#map {
+/* #map {
   height:48vh !important;
   width: 100% !important;
   display: flex;
@@ -192,7 +192,7 @@ input[type="file"]{
   border-radius: 14px;
   padding-top: 14px;
 
-}
+} */
 .pageNumbers {
   display: flex;
   list-style-type: none;

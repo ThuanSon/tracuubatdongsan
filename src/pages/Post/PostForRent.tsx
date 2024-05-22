@@ -2,11 +2,20 @@ import React, { Fragment, useEffect, useState } from "react";
 import { PropsPost } from "../../@type/type";
 import { InputOutlined } from "@mui/icons-material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import { Grid, Autocomplete, TextField, OutlinedInput, InputAdornment, Button } from "@mui/material";
+import {
+  Grid,
+  Autocomplete,
+  TextField,
+  OutlinedInput,
+  InputAdornment,
+  Button,
+} from "@mui/material";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Base64 from "../../@type/Base64";
+import { useTitle } from "../../Components/useTitle";
 const PostForRent: React.FC<PropsPost> = ({ loaiTin }) => {
+  useTitle(`Đăng tin ${loaiTin?.toLocaleLowerCase()}`);
   const navigate = useNavigate();
   useEffect(() => {
     const username = sessionStorage.getItem("username");
@@ -56,7 +65,7 @@ const PostForRent: React.FC<PropsPost> = ({ loaiTin }) => {
         }}
       >
         <img
-          style={{borderRadius: '7px'}}
+          style={{ borderRadius: "7px" }}
           src={URL.createObjectURL(file)}
           alt={`Image ${index}`}
           width="400"
@@ -541,7 +550,9 @@ const PostForRent: React.FC<PropsPost> = ({ loaiTin }) => {
               fullWidth
               name="giachothue"
               label="Giá trị bất động sản cho thuê"
-              onChange={(event: any) => handleChangeThongTin(event, "giachothue")}
+              onChange={(event: any) =>
+                handleChangeThongTin(event, "giachothue")
+              }
             />
           </Grid>
           <Grid item xs={4}>
@@ -847,7 +858,12 @@ const PostForRent: React.FC<PropsPost> = ({ loaiTin }) => {
             />
           </Grid>
           <Grid item xs={12}>
-            <Button fullWidth className="button-submit" type="submit" onClick={handleSubmit}>
+            <Button
+              fullWidth
+              className="button-submit"
+              type="submit"
+              onClick={handleSubmit}
+            >
               Đăng bài
             </Button>
           </Grid>

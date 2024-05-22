@@ -263,6 +263,9 @@ export default function Header() {
           <MenuItem>
             <Link to={`/bat-dong-san/Bán`}>Nhà đất bán</Link>
           </MenuItem>
+          <MenuItem>
+            <Link to={`/map`}>Bản đồ</Link>
+          </MenuItem>
           <Search>
             <SearchIconWrapper>
               <SearchIcon />

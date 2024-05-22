@@ -8,6 +8,7 @@ import ListBatDongSan from "./ListBatDongSan";
 import Map from "./Map";
 import axios from "axios";
 import MapComponent from "./MapProps";
+import { useTitle } from "../../Components/useTitle";
 interface Position {
   dientich: string;
   donvi: string;
@@ -29,6 +30,7 @@ interface Position {
 }
 
 const Dashboard = () => {
+  useTitle("Dashboard");
   const navigate = useNavigate();
   const [pos, setPos] = useState<Position[]>([]);
   const getListPosBDS = async () => {
@@ -38,7 +40,6 @@ const Dashboard = () => {
       );
       setPos(response.data); // Set empty array if response.data is falsy
       console.log(response.data);
-      
     } catch (error) {
       console.error("Error fetching posts:", error);
       setPos([]); // Set empty array on error

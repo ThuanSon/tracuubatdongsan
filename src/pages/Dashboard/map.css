@@ -1,0 +1,12 @@
+/* #map {
+    height:60vh !important;
+    width: 100% !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  };
+#map canvas{
+    border-radius: 14px;
+    padding-top: 14px;
+  
+  } */

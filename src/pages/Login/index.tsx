@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { TextField, Button, Typography, Grid, Paper } from "@mui/material"; // Import TextField, Button, Typography, Grid, and Paper from Material-UI
+import { useTitle } from "../../Components/useTitle";
 
 type User = {
   name: string;
@@ -13,6 +14,7 @@ type User = {
 };
 
 const Login = () => {
+  useTitle("Đăng nhập tài khoản");
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -25,11 +27,11 @@ const Login = () => {
     // getUsers();
     // const navigate = useNavigate();
 
-      const username = sessionStorage.getItem("username");
-      if (username !== null) {
-        navigate("/dashboard");
-      }
-    }, [navigate]);
+    const username = sessionStorage.getItem("username");
+    if (username !== null) {
+      navigate("/dashboard");
+    }
+  }, [navigate]);
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -62,7 +64,12 @@ const Login = () => {
   };
 
   return (
-    <Grid container justifyContent="center" alignItems="center" style={{ height: "100vh" }}>
+    <Grid
+      container
+      justifyContent="center"
+      alignItems="center"
+      style={{ height: "100vh" }}
+    >
       <Grid item xs={10} sm={8} md={6} lg={4}>
         <Paper elevation={3} style={{ padding: "20px" }}>
           <Typography variant="h4" align="center" gutterBottom>
@@ -93,7 +100,12 @@ const Login = () => {
                 />
               </Grid>
               <Grid item xs={6}>
-                <Button type="submit" variant="contained" color="primary" fullWidth>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  fullWidth
+                >
                   Đăng nhập
                 </Button>
               </Grid>

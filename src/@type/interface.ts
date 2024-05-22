@@ -57,3 +57,6 @@ export interface User {
   sotang: string;
   tieude: string;
 }
+export interface Idpost {
+  idpost: string;
+}

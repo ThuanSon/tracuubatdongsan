@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import mapboxgl from "../../@type/mapbox-gl"; // Import mapbox-gl types and Map interface
 import "../../@type/mapbox-gl.css";
 import "../../@type/mapbox-gl-draw.css";
 import Base64 from "../../@type/Base64";
-import "./map.css";
+// import "./map.css";
 import MapboxDraw from "../../@type/mapbox-gl-draw";
-import { Grid } from "@mui/material";
+import axios from "axios";
 interface Position {
   dientich: string;
   donvi: string;
@@ -26,14 +26,26 @@ interface Position {
   tieude: string;
 }
 
-interface MapComponentProps {
-  pos: Position[];
-}
-
 const YOUR_ACCESS_TOKEN =
   "pk.eyJ1IjoidGh1YW5zb24iLCJhIjoiY2x2OWdtbWhlMDhzczJqcnE3YW9xYWQ0eCJ9.ouFu7M49A0ak3Tg6zyzTfg";
 
-const MapComponent: React.FC<MapComponentProps> = ({ pos }) => {
+const MapComponentDirection = () => {
+  const [pos, setPos] = useState<Position[]>([]);
+  const getListPosBDS = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost/api/Controller/function/getListPositionBDS/"
+      );
+      setPos(response.data); // Set empty array if response.data is falsy
+      console.log(response.data);
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+      setPos([]); // Set empty array on error
+    }
+  };
+  useEffect(() => {
+    getListPosBDS();
+  }, []);
   useEffect(() => {
     mapboxgl.accessToken = YOUR_ACCESS_TOKEN;
 
@@ -81,7 +93,6 @@ const MapComponent: React.FC<MapComponentProps> = ({ pos }) => {
         // Set the draw mode to draw LineStrings by default
         defaultMode: "draw_line_string",
         styles: [
-          // Set the line style for the user-input coordinates
           {
             id: "gl-draw-line",
             type: "line",
@@ -246,33 +257,26 @@ const MapComponent: React.FC<MapComponentProps> = ({ pos }) => {
 
   return (
     <>
-      <Grid container>
-        <Grid item xs={9}>
-          <div id="map" style={{ width: "100%", height: "800px" }} />
-        </Grid>
-        <Grid item xs={3}>
-          <div
-            className="info-box"
-            style={
-              {
-                // position: "absolute",
-                // margin: "20px",
-                // width: "25%",
-                // top: 0,
-                // bottom: "20px",
-                // padding: "20px",
-                // backgroundColor: "#fff",
-                overflowY: "scroll"
-              }
-            }
-          ><div>Direction: </div>
-            <div id="directions" />
-          </div>
-        </Grid>
-      </Grid>
+      <div id="map" style={{ width: "100%", height: "800px" }} />
+      <div
+        className="info-box"
+        style={{
+          position: "absolute",
+          margin: "20px",
+          width: "15%",
+          borderRadius: "13px",
+          top: "20%",
+          bottom: "20px",
+          padding: "20px",
+          backgroundColor: "gray",
+          overflowY: "scroll",
+          opacity: 0.7,
+        }}
+      >
+        <div id="directions" style={{ opacity: 1, color: "white" }} />
+      </div>
     </>
-    // <div>hello</div>
   );
 };
 
-export default MapComponent;
+export default MapComponentDirection;

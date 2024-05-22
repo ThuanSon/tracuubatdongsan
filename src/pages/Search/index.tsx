@@ -19,12 +19,13 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import { red } from "@mui/material/colors";
 import Search from "../Dashboard/Search";
+import { useTitle } from "../../Components/useTitle";
 
 const SearchBDS = () => {
   let { q } = useParams<{ q: string }>();
   q = Base64.decode(Base64.decode(q));
   const [listPost, setListPost] = useState<Property[]>([]);
-
+  useTitle(`Kết quả tìm kiếm`);
   const fetch = async () => {
     try {
       const res = await axios.get(

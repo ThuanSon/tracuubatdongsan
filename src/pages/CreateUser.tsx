@@ -2,10 +2,11 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, TextField } from "@mui/material"; // Import Material-UI components
 import axios from "axios";
+import { useTitle } from "../Components/useTitle";
 const CreateUser = () => {
   const [inputs, setInputs] = useState({});
   const navigate = useNavigate();
-
+  useTitle(`Đăng ký tài khoản`);
   const handleSubmit = (event: any) => {
     event.preventDefault();
     axios

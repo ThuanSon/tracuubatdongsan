@@ -16,17 +16,19 @@ import { Slide } from "react-slideshow-image";
 import "react-slideshow-image/dist/styles.css";
 import Base64 from "../../@type/Base64";
 import { Post } from "../../@type/interface";
-
+import { useTitle } from "../../Components/useTitle";
 
 const PostDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [data, setData] = useState<Post | null>(null);
-
+  useTitle(`Tin chi tiết`);
   useEffect(() => {
     const fetchPost = async () => {
       try {
         const res = await axios.get(
-          `http://localhost/api/Controller/function/getPost/?id=${Base64.decode(Base64.decode(id))}`
+          `http://localhost/api/Controller/function/getPost/?id=${Base64.decode(
+            Base64.decode(id)
+          )}`
         );
         setData(res.data[0]);
       } catch (error) {
@@ -139,7 +141,11 @@ const PostDetails: React.FC = () => {
           <Grid container>
             <Grid item xs={12}>
               <Card>
-                <Link to ={`/user/profile/${Base64.encode(Base64.encode(data?.idnguoidang))}`}>
+                <Link
+                  to={`/user/profile/${Base64.encode(
+                    Base64.encode(data?.idnguoidang)
+                  )}`}
+                >
                   <CardHeader
                     avatar={
                       <Avatar sx={{ bgcolor: red[500] }}>
