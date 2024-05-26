@@ -13,7 +13,7 @@ import {
   IconButton,
 } from "@mui/material";
 import { red } from "@mui/material/colors";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Base64 from "../../@type/Base64";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
@@ -50,11 +50,13 @@ const TinYeuThich = () => {
   const [tin, setTin] = useState<TinYeuThich[]>([]);
   const [idPost, setIdPost] = useState<Idpost[]>([]);
   const [likes, setLikes] = useState<{ [key: string]: boolean }>({});
+  let { idnguoidang } = useParams<{ idnguoidang: string }>();
+  idnguoidang = Base64.decode(Base64.decode(idnguoidang));
+
   const fetch = async () => {
     try {
-      const id = sessionStorage.getItem("id-user-lg");
       const res = await axios.get<TinYeuThich[]>(
-        `${BASE_API_URL}Controller/function/getTinYeuThich/?id=${id}`
+        `${BASE_API_URL}Controller/function/getTinYeuThich/?id=${idnguoidang}`
       );
       setTin(res.data);
     } catch (error) {
@@ -64,10 +66,12 @@ const TinYeuThich = () => {
   };
 
   const getIdPostLike = async () => {
-    const iduser = sessionStorage.getItem("id-user-lg");
+    // const iduser = sessionStorage.getItem("id-user-lg");
+    // const { id } = useParams<{ id: string }>();
+
     try {
       const res = await axios.get(
-        `${BASE_API_URL}Controller/function/getIdPostLiked/?iduser=${iduser}`
+        `${BASE_API_URL}Controller/function/getIdPostLiked/?iduser=${idnguoidang}`
       );
       if (Array.isArray(res.data)) {
         setIdPost(res.data);
@@ -159,56 +163,67 @@ const TinYeuThich = () => {
         <p>No favorite posts available.</p>
       ) : (
         <Grid container spacing={2}>
-          {tin.map((item) => (
-            <Grid key={item.idpost} className="zoom" item xs={12} sm={6} md={4}>
-              <Card>
-                <Link
-                  to={`/chi-tiet-bai-dang/${Base64.encode(
-                    Base64.encode(item.idpost)
-                  )}`}
-                  style={{ textDecoration: "none" }}
-                >
-                  <CardHeader
-                    sx={{ height: "50px" }}
-                    avatar={
-                      <Avatar sx={{ bgcolor: red[500] }}>
-                        {item.name.charAt(0).toUpperCase()}
-                      </Avatar>
-                    }
-                    title={item.tieude}
-                    subheader={item.ngaydang}
-                  />
-                  <CardMedia
-                    component="img"
-                    height="194"
-                    image={`${BASE_API_URL}controller/test/img/${item.anh1}`}
-                    alt={item.tieude}
-                  />
-                  <CardContent sx={{ height: "50px" }}>
-                    <Typography variant="body2" color="text.secondary">
-                      {item.mota.slice(0, 200) + "...Xem thêm"}
-                    </Typography>
-                  </CardContent>
-                </Link>
-                <CardActions disableSpacing>
-                  <IconButton
-                    aria-label="add to favorites"
-                    onClick={() => handleClickLike(item.idpost)}
+          {Array.isArray(tin) ? (
+            tin.map((item) => (
+              <Grid
+                key={item.idpost}
+                className="zoom"
+                item
+                xs={12}
+                sm={6}
+                md={4}
+              >
+                <Card>
+                  <Link
+                    to={`/chi-tiet-bai-dang/${Base64.encode(
+                      Base64.encode(item.idpost)
+                    )}`}
+                    style={{ textDecoration: "none" }}
                   >
-                    <FavoriteIcon
-                      color={likes[item.idpost] ? "warning" : "inherit"}
+                    <CardHeader
+                      sx={{ height: "50px" }}
+                      avatar={
+                        <Avatar sx={{ bgcolor: red[500] }}>
+                          {item.name.charAt(0).toUpperCase()}
+                        </Avatar>
+                      }
+                      title={item.tieude}
+                      subheader={item.ngaydang}
                     />
-                  </IconButton>
-                  <IconButton
-                    aria-label="share"
-                    onClick={() => handleShare(item)}
-                  >
-                    <ShareIcon />
-                  </IconButton>
-                </CardActions>
-              </Card>
-            </Grid>
-          ))}
+                    <CardMedia
+                      component="img"
+                      height="194"
+                      image={`${BASE_API_URL}controller/test/img/${item.anh1}`}
+                      alt={item.tieude}
+                    />
+                    <CardContent sx={{ height: "50px" }}>
+                      <Typography variant="body2" color="text.secondary">
+                        {item.mota.slice(0, 200) + "...Xem thêm"}
+                      </Typography>
+                    </CardContent>
+                  </Link>
+                  <CardActions disableSpacing>
+                    <IconButton
+                      aria-label="add to favorites"
+                      onClick={() => handleClickLike(item.idpost)}
+                    >
+                      <FavoriteIcon
+                        color={likes[item.idpost] ? "warning" : "inherit"}
+                      />
+                    </IconButton>
+                    <IconButton
+                      aria-label="share"
+                      onClick={() => handleShare(item)}
+                    >
+                      <ShareIcon />
+                    </IconButton>
+                  </CardActions>
+                </Card>
+              </Grid>
+            ))
+          ) : (
+            <>Không có dữ liệu</>
+          )}
         </Grid>
       )}
     </div>

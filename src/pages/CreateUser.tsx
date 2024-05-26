@@ -4,7 +4,13 @@ import { Button, TextField } from "@mui/material"; // Import Material-UI compone
 import axios from "axios";
 import { useTitle } from "../Components/useTitle";
 const CreateUser = () => {
-  const [inputs, setInputs] = useState({});
+  const [inputs, setInputs] = useState({
+    name: "",
+    email: "",
+    mobile: "",
+    password: "",
+    confirmpassword: "",
+  });
   const navigate = useNavigate();
   useTitle(`Đăng ký tài khoản`);
   const handleSubmit = (event: any) => {
@@ -23,6 +29,10 @@ const CreateUser = () => {
   const handleChange = (event: any) => {
     const { name, value } = event.target;
     setInputs((values) => ({ ...values, [name]: value }));
+    console.log(inputs);
+  };
+  const checkInput = () => {
+    // var mailExpression = `^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4})*/$`
   };
 
   return (
@@ -80,13 +90,26 @@ const CreateUser = () => {
           />
         </div>
         <div className="form-actions">
-          <Button type="submit" variant="contained" color="primary">
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            fullWidth
+            disabled={
+              inputs.name === "" ||
+              inputs.email === "" ||
+              inputs.password === "" ||
+              inputs.confirmpassword === "" ||
+              inputs.password !== inputs.confirmpassword
+            }
+          >
             Save
           </Button>
           <Button
             type="button"
             variant="text"
             color="secondary"
+            fullWidth
             onClick={() => navigate("/user/authentication")}
           >
             Bạn đã có tài khoản?

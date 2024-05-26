@@ -6,6 +6,7 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Base64 from "../../@type/Base64";
+import { BASE_API_URL } from "../../BaseURL";
 
 const Search = () => {
   const nav = useNavigate();
@@ -36,13 +37,13 @@ const Search = () => {
   };
   const getProvince = async () => {
     const res = await axios.get(
-      `http://localhost/api/controller/function/getProvince/`
+      `${BASE_API_URL}controller/function/getProvince/`
     );
     setTinh(res.data);
   };
   const getDistricByProvinceID = async (id: any) => {
     const res = await axios.get(
-      `http://localhost/api/controller/function/getDistrictByProvinceID/?provinceId=` +
+      `${BASE_API_URL}controller/function/getDistrictByProvinceID/?provinceId=` +
         id
     );
     // console.log(res);

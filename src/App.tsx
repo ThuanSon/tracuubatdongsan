@@ -24,7 +24,10 @@ const App = () => {
                 element={
                   <Paper>
                     <Layout>
-                      <div style={{ backgroundColor: "#998e8e17" }}> <br /></div>
+                      <div style={{ backgroundColor: "#998e8e17" }}>
+                        {" "}
+                        <br />
+                      </div>
                       <Grid container>
                         <VertiLayout />
                         <Grid
@@ -41,8 +44,8 @@ const App = () => {
                               marginLeft: "10px",
                               backgroundColor: "white",
                               // display: 'flex',
-                              justifyContent: 'center',
-                              alignItems: 'center'
+                              justifyContent: "center",
+                              alignItems: "center",
                             }}
                           >
                             <Page />

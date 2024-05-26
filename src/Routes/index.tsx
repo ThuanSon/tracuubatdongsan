@@ -1,31 +1,31 @@
-// import React, { lazy } from "react";
-import { Routes, Route, Link, BrowserRouter } from "react-router-dom";
-import { ListUser } from "../pages/ListUser";
-import CreateUser from "../pages/CreateUser";
-import { EditUser } from "../pages/EditUser";
-import Login from "../pages/Login";
-import Dashboard from "../pages/Dashboard";
-import Details from "../pages/Details";
-import { BDSNgoaiDuAn } from "../pages/BDSNgoaiDuAn";
-import { BDSTrongDuAn } from "../pages/BDSTrongDuAn";
+import { lazy } from "react";
+import Loadable from "../Components/Loadable";
+
+// Pages
 import { Post } from "../pages/Post";
-import UpLoadImage from "../pages/Post/UpLoadImage";
+// import UpLoadImage from "../pages/Post/UpLoadImage";
 import { ThongTinBatDongSan } from "../pages/Post/ThongTinBatDongSan";
 import ThongTinBaiViet from "../pages/Post/ThongTinBaiViet";
-import FullPost from "../pages/Post/FullPost";
-import Loadable from "../Components/Loadable";
-import Map from "../pages/Dashboard/Map";
-import { Fragment } from "react/jsx-runtime";
-import PostDetails from "../pages/PostDetails";
-import Slideshow from "../pages/PostDetails/Slideshow";
-import UserProfile from "../pages/User";
-import SearchBDS from "../pages/Search";
-import BatDongSanChoThue from "../pages/Dashboard/BatDongSanChoThue";
-// import MapLibreGL from "../pages/Map";
-import MapComponentDirection from "../pages/Map";
 
-// const CreateUser = Loadable(lazy(() => import("../pages/CreateUser")));
-
+// Lazily loaded components
+const CreateUser = Loadable(lazy(() => import("../pages/CreateUser")));
+const Login = Loadable(lazy(() => import("../pages/Login")));
+const Dashboard = Loadable(lazy(() => import("../pages/Dashboard")));
+const Details = Loadable(lazy(() => import("../pages/Details")));
+const UpLoadImage = Loadable(lazy(() => import("../pages/Post/UpLoadImage")));
+const Map = Loadable(lazy(() => import("../pages/Dashboard/Map")));
+const PostDetails = Loadable(lazy(() => import("../pages/PostDetails")));
+const Slideshow = Loadable(
+  lazy(() => import("../pages/PostDetails/Slideshow"))
+);
+const UserProfile = Loadable(lazy(() => import("../pages/User")));
+const SearchBDS = Loadable(lazy(() => import("../pages/Search")));
+const BatDongSanChoThue = Loadable(
+  lazy(() => import("../pages/Dashboard/BatDongSanChoThue"))
+);
+const MapComponentDirection = Loadable(lazy(() => import("../pages/Map")));
+const QuanLyTinDang = Loadable(lazy(() => import("../pages/QuanLyTinDang")));
+// Define public routes
 const publicRoute = [
   { path: "/*", component: Dashboard, vertiLayout: null },
   {
@@ -61,5 +61,7 @@ const publicRoute = [
     vertiLayout: null,
   },
   { path: "/bat-dong-san/:q", component: BatDongSanChoThue, vertiLayout: null },
+  { path: "quan-ly-tin", component: QuanLyTinDang},
 ];
+
 export { publicRoute };

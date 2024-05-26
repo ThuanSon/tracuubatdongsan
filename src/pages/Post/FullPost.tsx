@@ -231,6 +231,8 @@ const FullPost: React.FC<Props> = ({ loaiTin }) => {
     console.log("BDS status: ", res.data.status);
     return res.data.status;
   };
+  console.log(formDataBatDongSan);
+
   useEffect(() => {
     sessionStorage.setItem("nguoiduoclienhe", lienHe.tenlienhe);
     sessionStorage.setItem("sodienthoai", lienHe.sodienthoai);
@@ -330,58 +332,30 @@ const FullPost: React.FC<Props> = ({ loaiTin }) => {
     setPhuong(res.data);
   };
   const cur = ["VND", "Thương lượng", "giá/m2"];
-  // const [isFormValid, setIsFormValid] = useState(false);
-  // const checkFormValidity = () => {
-  //   const {
-  //     tieude,
-  //     mota,
-  //     dientich,
-  //     giatri,
-  //     province,
-  //     district,
-  //     ward,
-  //     giaytophaply,
-  //     noithat,
-  //   } = formDataBatDongSan;
-  //   const { tenlienhe, sodienthoai, email } = lienHe;
-  //   const isValid =
-  //     !!tieude &&
-  //     !!mota &&
-  //     !!dientich &&
-  //     !!giatri &&
-  //     !!province.PROVINCE_ID &&
-  //     !!district.DISTRICT_ID &&
-  //     !!ward.WARDS_ID &&
-  //     !!giaytophaply &&
-  //     !!noithat &&
-  //     !!tenlienhe &&
-  //     !!sodienthoai &&
-  //     !!email;
-  //   setIsFormValid(isValid);
-  // };
-  // useEffect(() => {
-  //   // Check if all required fields have values
-
-  //   checkFormValidity();
-  // }, [formDataBatDongSan, lienHe, formDataPost]);
-
   const [isDisabled, setIsDisabled] = useState(true);
   const check = () => {
     if (
-      formDataBatDongSan.province.PROVINCE_NAME.length > 0 &&
-      formDataBatDongSan.district.DISTRICT_NAME.length > 0 &&
-      formDataBatDongSan.type.tenloai.length > 0 &&
-      formDataBatDongSan.ward.WARDS_NAME.length > 0 &&
-      formDataBatDongSan.street.length > 0 &&
-      formDataBatDongSan.diachi.length > 0 &&
-      formDataBatDongSan.dientich.length > 0 &&
-      formDataBatDongSan.giatri.length > 0
-      // formDataBatDongSan.donvi.length > 0 &&
-      // lienHe.tenlienhe.length > 0 &&
-      // lienHe.email.length > 0 &&
-      // lienHe.sodienthoai.length > 0 &&
-      // formDataPost.mota.length > 0 &&
-      // formDataPost.tieude.length > 0
+      formDataBatDongSan.province.PROVINCE_NAME !== "" &&
+      formDataBatDongSan.district.DISTRICT_NAME !== "" &&
+      formDataBatDongSan.type.tenloai !== "" &&
+      formDataBatDongSan.ward.WARDS_NAME !== "" &&
+      formDataBatDongSan.street !== "" &&
+      formDataBatDongSan.diachi !== "" &&
+      formDataBatDongSan.dientich !== "" &&
+      formDataBatDongSan.giatri !== "" &&
+      formDataBatDongSan.donvi !== "" &&
+      lienHe.tenlienhe !== "" &&
+      lienHe.email !== "" &&
+      lienHe.sodienthoai !== "" &&
+      formDataPost.mota !== "" &&
+      formDataPost.tieude !== ""
+      // formDataBatDongSan.province.PROVINCE_NAME === "" ||
+      // formDataBatDongSan.district.DISTRICT_NAME === "" ||
+      // formDataBatDongSan.ward.WARDS_NAME === "" ||
+      // formDataBatDongSan.type.tenloai === "" ||
+      // formDataBatDongSan.street === "" ||
+      // formDataBatDongSan.diachi === "" ||
+      // formDataBatDongSan.dientich === ""
     ) {
       setIsDisabled(false);
     }
@@ -392,7 +366,7 @@ const FullPost: React.FC<Props> = ({ loaiTin }) => {
   return (
     <>
       <div className="rentalform">
-        <h2>Địa chỉ</h2> <br />
+        <h2>Địa chỉ bán</h2> <br />
         <Grid container spacing={2} alignItems="center">
           <Grid item xs={12}>
             <label htmlFor="type">Loại bất động sản</label> <br />
@@ -482,7 +456,7 @@ const FullPost: React.FC<Props> = ({ loaiTin }) => {
                 getWardByDistricID(
                   formDataBatDongSan.district.DISTRICT_ID || 0
                 );
-                console.log(formDataBatDongSan);
+                // console.log(formDataBatDongSan);
               }}
               renderInput={(params) => (
                 <TextField
@@ -921,6 +895,8 @@ const FullPost: React.FC<Props> = ({ loaiTin }) => {
             <label htmlFor="mota">Mô tả</label> <br />
             <TextField
               fullWidth
+              multiline
+              rows={10}
               name="mota"
               label="VD: Khu nhà có vị trí gần Trung tâm thương mại"
               onChange={(event: any) => handleChangePost(event, "mota")}
@@ -929,11 +905,33 @@ const FullPost: React.FC<Props> = ({ loaiTin }) => {
           <Grid item xs={12}>
             {}
             <Button
-              // className={!isDisabled ? "disable-status" : "button-submit"}
-              className={isDisabled ? "disable-status" : "button-submit"}
+              className={
+                formDataBatDongSan.province.PROVINCE_NAME === "" ||
+                formDataBatDongSan.district.DISTRICT_NAME === "" ||
+                formDataBatDongSan.ward.WARDS_NAME === "" ||
+                formDataBatDongSan.type.tenloai === "" ||
+                formDataBatDongSan.street === "" ||
+                formDataBatDongSan.diachi === "" ||
+                formDataPost.mota === "" ||
+                formDataPost.tieude === ""
+                  ? "disable-status"
+                  : "button-submit"
+              }
+              // className="button-submit"
               fullWidth
               type="submit"
-              disabled={isDisabled}
+              disabled={
+                formDataBatDongSan.province.PROVINCE_NAME === "" ||
+                formDataBatDongSan.district.DISTRICT_NAME === "" ||
+                formDataBatDongSan.ward.WARDS_NAME === "" ||
+                formDataBatDongSan.type.tenloai === "" ||
+                formDataBatDongSan.street === "" ||
+                formDataBatDongSan.diachi === "" ||
+                formDataPost.mota === "" ||
+                formDataPost.tieude === ""
+                // formDataBatDongSan.dientich === ""
+                // formDataBatDongSan.giatri === ""
+              }
               onClick={handleSubmit}
             >
               Đăng bài

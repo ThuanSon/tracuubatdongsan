@@ -1,69 +1,3 @@
-// import { BookOnlineOutlined, HomeMiniOutlined } from "@mui/icons-material";
-// import { Button, Grid, Typography } from "@mui/material";
-// import React, { useState } from "react";
-// import { Link } from "react-router-dom";
-
-// interface NavBar {
-//   id: number;
-//   title: string;
-//   isActive: boolean;
-//   link: string;
-//   icon: JSX.Element;
-// }
-// const Header = () => {
-//   const [navbar, setNavbar] = useState<NavBar[]>([
-//     {
-//       id: 1,
-//       title: "Nhà đất cho thuê",
-//       isActive: false,
-//       link: "/nha-dat-cho-thue",
-//       icon: <HomeMiniOutlined />,
-//     },
-//     {
-//       id: 2,
-//       title: "Nhà đất bán",
-//       isActive: false,
-//       link: "/nha-dat-ban",
-//       icon: <HomeMiniOutlined />,
-//     },
-//     {
-//       id: 3,
-//       title: "Tin tức",
-//       isActive: false,
-//       link: "/tin-tuc",
-//       icon: <BookOnlineOutlined />,
-//     },
-//   ]);
-//   return (
-//     <Grid container>
-//       <Grid item xs={12}>
-//         <Grid container>
-//           {navbar.map((item) => (
-//             <>
-//               <Grid item xs={12 / navbar.length}>
-//                 <Link to={item.link}>
-//                   <Button key={item.id} className="buttonlink">
-//                     <Typography style={{color: 'grey'}}>
-//                         <div>
-//                             {item.icon}
-//                         </div>
-//                         <div>
-//                             {item.title}
-//                         </div>
-//                     </Typography>
-//                   </Button>
-//                 </Link>
-//               </Grid>
-//             </>
-//           ))}
-//         </Grid>
-//       </Grid>
-//     </Grid>
-//   );
-// };
-
-// export default Header;
-
 import * as React from "react";
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
@@ -73,7 +7,6 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import Badge from "@mui/material/Badge";
-// import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import AccountCircle from "@mui/icons-material/AccountCircle";
@@ -81,13 +14,14 @@ import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import { Link, useNavigate } from "react-router-dom";
-// import MenuListComposition from "./MenuListComposition";
-// import MenuList from "@mui/material/MenuList";
 import MenuItem from "@mui/material/MenuItem";
-import MenuList from "@mui/material/MenuList";
-import { Button } from "@mui/material";
+import { Button, Snackbar, SnackbarOrigin } from "@mui/material";
 import Logo from "../../../asset/image/logo.jpg";
 import Base64 from "../../../@type/Base64";
+import { useState } from "react";
+interface State extends SnackbarOrigin {
+  open: boolean;
+}
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
@@ -118,7 +52,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "inherit",
   "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create("width"),
     width: "100%",
@@ -148,7 +81,7 @@ export default function Header() {
   const handleMenuClose = () => {
     setAnchorEl(null);
     handleMobileMenuClose();
-    const id = sessionStorage.getItem('id-user-lg') ?? '';
+    const id = sessionStorage.getItem("id-user-lg") ?? "";
     nav(`/user/profile/${Base64.encode(Base64.encode(id))}`);
   };
 
@@ -157,28 +90,57 @@ export default function Header() {
   };
 
   const menuId = "primary-search-account-menu";
+  const [state, setState] = useState<State>({
+    open: false,
+    vertical: "bottom",
+    horizontal: "center",
+  });
+  const [message, setMessage] = useState("");
+  const { vertical, horizontal, open } = state;
+
+  const handleClick = (newState: SnackbarOrigin) => () => {
+    setState({ ...newState, open: true });
+  };
+
+  const handleClose = () => {
+    setState({ ...state, open: false });
+  };
+
   const renderMenu = (
     <Menu
       anchorEl={anchorEl}
-      anchorOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
+      anchorOrigin={{ vertical: "top", horizontal: "right" }}
       id={menuId}
       keepMounted
-      transformOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
+      transformOrigin={{ vertical: "top", horizontal: "right" }}
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      {/* <Link to='/user/profile'> */}
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      {/* </Link> */}
       <MenuItem onClick={handleMenuClose}>
         Hello, {sessionStorage.getItem("username")}
       </MenuItem>
+      <MenuItem onClick={handleMenuClose}>Hồ sơ</MenuItem>
+      {sessionStorage.getItem("username") !== null ? (
+        <MenuItem
+          onClick={() => {
+            sessionStorage.removeItem("id-user-lg");
+            sessionStorage.removeItem("username");
+            setState({ ...state, open: true });
+            setMessage("Đăng xuất thành công");
+            nav("/user/authentication");
+          }}
+        >
+          Đăng xuất
+        </MenuItem>
+      ) : (
+        <MenuItem
+          onClick={() => {
+            nav("/user/authentication");
+          }}
+        >
+          Đăng nhập
+        </MenuItem>
+      )}
     </Menu>
   );
 
@@ -186,16 +148,10 @@ export default function Header() {
   const renderMobileMenu = (
     <Menu
       anchorEl={mobileMoreAnchorEl}
-      anchorOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
+      anchorOrigin={{ vertical: "top", horizontal: "right" }}
       id={mobileMenuId}
       keepMounted
-      transformOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
+      transformOrigin={{ vertical: "top", horizontal: "right" }}
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
@@ -223,7 +179,7 @@ export default function Header() {
         <IconButton
           size="large"
           aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
+          aria-controls={menuId}
           aria-haspopup="true"
           color="inherit"
         >
@@ -234,16 +190,10 @@ export default function Header() {
     </Menu>
   );
 
-  const handleClickToOpenMenu = () => {
-    console.log("open menu");
-  };
-
   return (
     <Box sx={{ width: "100%", top: 0 }}>
       <AppBar position="static" color="inherit">
         <Toolbar>
-          {/* Replace MenuIcon with MenuListComposition */}
-          {/* <MenuListComposition /> */}
           <Typography
             variant="h6"
             noWrap
@@ -265,6 +215,9 @@ export default function Header() {
           </MenuItem>
           <MenuItem>
             <Link to={`/map`}>Bản đồ</Link>
+          </MenuItem>
+          <MenuItem>
+            <Link to={`/quan-ly-tin`}>Quản lý tin</Link>
           </MenuItem>
           <Search>
             <SearchIconWrapper>
@@ -328,6 +281,15 @@ export default function Header() {
       </AppBar>
       {renderMobileMenu}
       {renderMenu}
+      <Box sx={{ width: 500 }}>
+        <Snackbar
+          anchorOrigin={{ vertical, horizontal }}
+          open={open}
+          onClose={handleClose}
+          message={message}
+          key={vertical + horizontal}
+        />
+      </Box>
     </Box>
   );
 }

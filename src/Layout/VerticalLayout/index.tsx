@@ -48,7 +48,7 @@ const VerticalLayout = () => {
                   <Link to="/create/post">Đăng tin</Link>
                 </TabPanel>
                 <TabPanel value="1">
-                  <Link to="/">Danh sách tin đăng</Link>
+                  <Link to="/quan-ly-tin">Danh sách tin đăng</Link>
                 </TabPanel>
                 {/* <TabPanel value="3">Item Three</TabPanel> */}
               </TabContext>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import mapboxgl from "../../@type/mapbox-gl"; // Import mapbox-gl types and Map interface
+import mapboxgl from "mapbox-gl"; // Import mapbox-gl types and Map interface
 import "../../@type/mapbox-gl.css";
 import "../../@type/mapbox-gl-draw.css";
 import Base64 from "../../@type/Base64";

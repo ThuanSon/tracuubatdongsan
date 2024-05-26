@@ -329,7 +329,7 @@ const PostForRent: React.FC<PropsPost> = ({ loaiTin }) => {
   return (
     <>
       <div className="rentalform">
-        <h2>Địa chỉ</h2> <br />
+        <h2>Địa chỉ cho thuê</h2> <br />
         <Grid container spacing={2} alignItems="center">
           <Grid item xs={12}>
             <label htmlFor="type">Loại bất động sản</label> <br />
@@ -854,15 +854,41 @@ const PostForRent: React.FC<PropsPost> = ({ loaiTin }) => {
               fullWidth
               name="mota"
               label="VD: Khu nhà có vị trí gần Trung tâm thương mại"
+              multiline
+              rows={10}
               onChange={(event: any) => handleChangePost(event, "mota")}
             />
           </Grid>
           <Grid item xs={12}>
             <Button
               fullWidth
-              className="button-submit"
+              // className="button-submit"
+              className={
+                formDataBatDongSan.province.PROVINCE_NAME === "" ||
+                formDataBatDongSan.district.DISTRICT_NAME === "" ||
+                formDataBatDongSan.ward.WARDS_NAME === "" ||
+                formDataBatDongSan.type.tenloai === "" ||
+                formDataBatDongSan.street === "" ||
+                formDataBatDongSan.diachi === "" ||
+                formDataPost.mota === "" ||
+                formDataPost.tieude === ""
+                  ? "disable-status"
+                  : "button-submit"
+              }
               type="submit"
               onClick={handleSubmit}
+              disabled={
+                formDataBatDongSan.province.PROVINCE_NAME === "" ||
+                formDataBatDongSan.district.DISTRICT_NAME === "" ||
+                formDataBatDongSan.ward.WARDS_NAME === "" ||
+                formDataBatDongSan.type.tenloai === "" ||
+                formDataBatDongSan.street === "" ||
+                formDataBatDongSan.diachi === "" ||
+                formDataPost.mota === "" ||
+                formDataPost.tieude === ""
+                // formDataBatDongSan.dientich === ""
+                // formDataBatDongSan.giatri === ""
+              }
             >
               Đăng bài
             </Button>

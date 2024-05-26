@@ -21,8 +21,8 @@ export interface Post {
   giatri: string;
   giaytophaply: string;
   id: string;
-  latitude: number | null;
-  longitude: number | null;
+  latitude: any;
+  longitude: any;
   mota: string;
   name: string;
   ngaydang: string;

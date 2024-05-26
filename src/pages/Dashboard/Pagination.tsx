@@ -284,22 +284,35 @@ const Pagination: React.FC = () => {
           </Grid>
         ))}
       </Grid>
-      <ul className="pageNumbers">
-        <li>
-          <button onClick={handlePrevbtn} disabled={currentPage === pages[0]}>
-            Prev
-          </button>
-        </li>
-        {renderPageNumbers}
-        <li>
-          <button
-            onClick={handleNextbtn}
-            disabled={currentPage === pages[pages.length - 1]}
-          >
-            Next
-          </button>
-        </li>
-      </ul>
+      <Grid
+        container
+        spacing={2}
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Grid item xs={12}>
+          <ul className="pageNumbers">
+            <li>
+              <button
+                onClick={handlePrevbtn}
+                disabled={currentPage === pages[0]}
+              >
+                Prev
+              </button>
+            </li>
+            {renderPageNumbers}
+            <li>
+              <button
+                onClick={handleNextbtn}
+                disabled={currentPage === pages[pages.length - 1]}
+              >
+                Next
+              </button>
+            </li>
+          </ul>
+        </Grid>
+      </Grid>
     </>
   );
 };
